@@ -3,6 +3,6 @@ services:
         public: false
         class: Knp\Bundle\LastTweetsBundle\Twig\Extension\TweetUrlizeTwigExtension
         arguments:
-            - @templating.helper.last_tweets
+            - '@templating.helper.last_tweets'
         tags:
             - { name: twig.extension }
