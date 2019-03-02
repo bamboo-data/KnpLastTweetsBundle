@@ -97,7 +97,33 @@ class ApiFetcher implements FetcherInterface
 
         return $tweets;
     }
-    
+
+    public function fetchUser($username)
+    {
+        $response = $this->getResponse('users/show', ['screen_name' => $username]);
+        $statusCode = $response->getStatusCode();
+        $data = $response->getContent();
+
+        if (empty($data)) {
+            throw new TwitterException('Received empty data from api.twitter.com');
+        }
+
+        $data = json_decode($data, true);
+
+        if (null === $data) {
+            throw new TwitterException('Unable to decode data: ' . json_last_error());
+        }
+
+        if ($statusCode != 200) {
+            if (isset($data['error'])) {
+                throw new TwitterException(sprintf('Twitter error: %s', $data['error']));
+            } else {
+                throw new TwitterException(sprintf('Received %d http code.', $statusCode));
+            }
+        }
+        return $data;
+    }
+
     protected function fetchTweets($parameters)
     {
         $response = $this->getResponse('statuses/user_timeline', $parameters);
