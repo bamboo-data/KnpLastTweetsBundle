@@ -10,6 +10,7 @@ class Tweet
     protected $username;
     protected $isReply;
     protected $isRetweet;
+    protected $avatar;
 
     public function __construct(array $object)
     {
@@ -19,6 +20,17 @@ class Tweet
         $this->username = $object['username'];
         $this->isReply = isset($object['in_reply_to_screen_name']);
         $this->isRetweet = isset($object['retweeted_status']);
+        $this->avatar = isset($object['avatar']) ? $object['avatar'] : null;
+    }
+
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar($url)
+    {
+        $this->avatar = $url;
     }
 
     public function getText()

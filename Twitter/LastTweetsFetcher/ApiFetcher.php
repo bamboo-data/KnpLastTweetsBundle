@@ -40,7 +40,7 @@ class ApiFetcher implements FetcherInterface
                 $parameters = array(
                     'screen_name' => urlencode($username),
                     'count' => $count,
-                    'trim_user' => 1,
+                    'trim_user' => 0,
                     'exclude_replies' => (int) $excludeReplies,
                     'include_rts' => (int) $includeRts,
                     'page' => $page
@@ -56,6 +56,11 @@ class ApiFetcher implements FetcherInterface
                 array_walk($data, function(&$tweet) use($username) {
                     if (is_array($tweet)) {
                         $tweet['username'] = $username;
+                        if (is_array($tweet['retweeted_status'])) {
+                            $tweet['avatar'] = $tweet['retweeted_status']['user']['profile_image_url_https'];
+                        } else {
+                            $tweet['avatar'] = $tweet['user']['profile_image_url_https'];
+                        }
                     }
                 });
 
