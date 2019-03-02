@@ -19,8 +19,8 @@ class TweetUrlizeHelper implements HelperInterface
     {
         $text = preg_replace("#(^|[\n ])([\w]+?://[\w]+[^ \"\n\r\t< ]*)#", "\\1<a href=\"\\2\">\\2</a>", $text);
         $text = preg_replace("#(^|[\n ])((www|ftp)\.[^ \"\t\n\r< ]*)#", "\\1<a href=\"http://\\2\">\\2</a>", $text);
-        $text = preg_replace("/@(\w+)/", "<a href=\"http://twitter.com/\\1\">@\\1</a>", $text);
-        $text = preg_replace("/([^&]|^)#(\w+)/", "\\1<a href=\"http://twitter.com/search/\\2\">#\\2</a>", $text);
+        $text = preg_replace("/@(\w+)/", "<a href=\"https://twitter.com/\\1\">@\\1</a>", $text);
+        $text = preg_replace("/([^&]|^)#(\w+)/", "\\1<a href=\"https://twitter.com/search/\\2\">#\\2</a>", $text);
 
         return $text;
     }
