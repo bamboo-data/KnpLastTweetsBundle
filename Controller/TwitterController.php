@@ -10,13 +10,13 @@ use Knp\Bundle\LastTweetsBundle\Twitter\Exception\TwitterException;
 
 class TwitterController extends Controller
 {
-    public function lastTweetsAction($username, $limit = 10, $age = null)
+    public function lastTweetsAction($username, $limit = 10, $excludeReplies = true, $includeRts = false, $age = null)
     {
         /* @var $twitter FetcherInterface */
         $twitter = $this->get('knp_last_tweets.last_tweets_fetcher');
 
         try {
-            $tweets = $twitter->fetch($username, $limit);
+            $tweets = $twitter->fetch($username, $limit, $excludeReplies, $includeRts);
         } catch (TwitterException $e) {
             $tweets = array();
         }
