@@ -56,7 +56,7 @@ class ApiFetcher implements FetcherInterface
                 array_walk($data, function(&$tweet) use($username) {
                     if (is_array($tweet)) {
                         $tweet['username'] = $username;
-                        if (is_array($tweet['retweeted_status'])) {
+                        if (array_key_exists('retweeted_status', $tweet) && is_array($tweet['retweeted_status'])) {
                             $tweet['avatar'] = $tweet['retweeted_status']['user']['profile_image_url_https'];
                         } else {
                             $tweet['avatar'] = $tweet['user']['profile_image_url_https'];
